@@ -2,4 +2,10 @@
 
 //database_connection.php
 
-$connect = new PDO("mysql:host=localhost; dbname=select2_create_option", "root", "");
+$servername = "localhost";
+$username   = "root";
+$password   = "";
+$dbname     = "select2_create_option";
+
+// Create connection
+$connect = mysqli_connect($servername, $username, $password, $dbname);

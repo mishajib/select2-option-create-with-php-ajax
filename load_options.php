@@ -7,21 +7,17 @@ $numberofrecords = 10;
 if (!isset($_POST['searchTerm'])) {
 
     // Fetch records
-    $stmt = $connect->prepare("SELECT * FROM options ORDER BY option_value");
+    $stmt = "SELECT * FROM options ORDER BY option_value";
 //    $stmt->bindValue(':limit', (int)$numberofrecords, PDO::PARAM_INT);
-    $stmt->execute();
-    $usersList = $stmt->fetchAll();
+    $usersList = $connect->query($stmt);
 
 } else {
 
     $search = $_POST['searchTerm'];// Search text
 
     // Fetch records
-    $stmt = $connect->prepare("SELECT * FROM options WHERE option_value like :option_value ORDER BY option_value");
-    $stmt->bindValue(':option_value', '%' . $search . '%', PDO::PARAM_STR);
-//    $stmt->bindValue(':limit', (int)$numberofrecords, PDO::PARAM_INT);
-    $stmt->execute();
-    $usersList = $stmt->fetchAll();
+    $stmt      = "SELECT * FROM options WHERE option_value like '%" . $search . "%' ORDER BY option_value";
+    $usersList = $connect->query($stmt);
 
 }
 
@@ -36,4 +32,3 @@ foreach ($usersList as $user) {
 }
 
 echo json_encode($response);
-exit();
